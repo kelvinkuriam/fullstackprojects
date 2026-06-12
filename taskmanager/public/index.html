@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        
+        <header class="app-header">
+            <div class="header-icon">checkmark</div>
+            <h1 class="app-title">Task Manager</h1>
+            <p class="app-subtitle">Stay organised. Get things done.</p>
+        </header>
+
+        <section class ="add-task-section" aria-label="Add a new task" > 
+        <div class="input-group">
+          <input type="text" id="task-input" placeholder="What needs to be done?"
+          maxlength="200" autocomplete="off" aria-label="New task name">
+
+          <button type="button" id="add-btn" class="btn btn-add">+ Add Task</button>
+
+        </div>  
+        
+        <p id = "input-error" class="input-error" role = "alert" aria-live ="polite"></p>
+        
+        
+        </section>
+    
+    
+     <section class="tasks-section" aria-label="Task list">
+     <div class="tasks-header">
+
+        <h2 class="tasks-title">Your Tasks</h2>
+        <span id="task-count" class="task-count">0 pending</span>
+     </div>
+
+     <div class="filter-bar" role="group" aria-label="Filter tasks">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="pending">Pending</button>
+        <button class="filter-btn" data-filter="completed">Completed</button>
+     </div>
+
+     <ul id = "task-list" class = "task-list">
+
+        <li id="empty-state" class = "empty-state">
+            <span class="empty-icon">clipboard</span>
+            <p>No tasks yet.Add one above!</p>
+        </li>
+     </ul>
+
+
+
+
+     </section>
+    
+    
+    
+    
+    
+    
+    </div>
+
+ <script src = "app.js"></script>
+</body>
+</html>

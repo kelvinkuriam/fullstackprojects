@@ -1,0 +1,368 @@
+/* ============================================================
+   RESET & CUSTOM PROPERTIES
+   Reset creates a consistent cross-browser baseline.
+   Custom properties (variables) define our design system.
+   ============================================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box; /* Apply to every single element. */
+  margin: 0;              /* Strip all browser default margins. */
+  padding: 0;             /* Strip all browser default padding. */
+}
+
+:root {
+  /* CSS variables on :root are available everywhere in the stylesheet.
+     To retheme the entire app, change values here only. */
+
+  --colour-bg:           #F4F7FB;
+  --colour-surface:      #FFFFFF;
+  --colour-surface-2:    #F0F4FA;
+  --colour-border:       #DDE3EE;
+  --colour-text:         #1A1D2E;
+  --colour-text-muted:   #6B7494;
+  --colour-accent:       #4F6EF7;
+  --colour-accent-dark:  #3451D1;
+  --colour-success:      #2ECC8E;
+  --colour-danger:       #E74C3C;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI',
+               Roboto, Oxygen, Ubuntu, sans-serif;
+  /* System font stack: no download required.
+     Mac: SF Pro | Windows: Segoe UI | Android: Roboto */
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 14px;
+
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.10), 0 2px 6px rgba(0,0,0,0.06);
+
+  --transition: 0.2s ease;
+}
+
+
+/* ========== BASE ========== */
+
+body {
+  font-family:      var(--font-sans);
+  background-color: var(--colour-bg);
+  color:            var(--colour-text);
+  line-height:      1.6;     /* 1.6× font-size per line. 1.2 (default) is cramped. */
+  min-height:       100vh;   /* vh = viewport height. Fills entire screen. */
+  padding:          24px 16px;
+}
+
+.app-container {
+  max-width: 680px;   /* ~80 chars per line — optimal readability. */
+  margin:    0 auto;  /* Classic centring: auto splits space equally left + right. */
+}
+
+
+/* ========== HEADER ========== */
+
+.app-header {
+  text-align: center;
+  padding:    32px 0 28px;
+}
+
+.header-icon {
+  font-size:     3rem; /* rem is relative to root font-size (~16px).
+                          Scales with accessibility settings. */
+  line-height:   1;
+  margin-bottom: 12px;
+}
+
+.app-title {
+  font-size:      2rem;
+  font-weight:    700;
+  letter-spacing: -0.5px;
+  margin-bottom:  6px;
+}
+
+.app-subtitle {
+  font-size: 0.95rem;
+  color:     var(--colour-text-muted);
+}
+
+
+/* ========== ADD TASK SECTION ========== */
+
+.add-task-section {
+  background:    var(--colour-surface);
+  border:        1px solid var(--colour-border);
+  border-radius: var(--radius-lg);
+  padding:       20px;
+  margin-bottom: 20px;
+  box-shadow:    var(--shadow-sm);
+}
+
+.input-group {
+  display: flex;
+  gap:     10px;
+}
+
+.task-input {
+  flex:        1;
+  padding:     12px 16px;
+  border:      1.5px solid var(--colour-border);
+  border-radius: var(--radius-md);
+  font-size:   1rem;
+  font-family: inherit;
+  /* font-family: inherit is required — inputs ignore body font by default. */
+  color:       var(--colour-text);
+  background:  var(--colour-surface-2);
+  transition:  border-color var(--transition), box-shadow var(--transition);
+  outline:     none; /* Remove default browser outline — replaced below. */
+}
+
+.task-input:focus {
+  border-color: var(--colour-accent);
+  background:   var(--colour-surface);
+  box-shadow:   0 0 0 3px rgba(79, 110, 247, 0.15);
+  /* Custom focus ring. NEVER remove focus styles without replacing them.
+     They are required for keyboard navigation and accessibility. */
+}
+
+.task-input::placeholder {
+  color:   var(--colour-text-muted);
+  opacity: 0.7;
+}
+
+
+/* ========== BUTTONS ========== */
+
+.btn {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  gap:             6px;
+  padding:         12px 20px;
+  border:          none;
+  border-radius:   var(--radius-md);
+  font-size:       0.95rem;
+  font-weight:     600;
+  font-family:     inherit;
+  cursor:          pointer; /* Shows hand cursor — signals clickability. */
+  transition:      background var(--transition),
+                   transform var(--transition),
+                   box-shadow var(--transition);
+  white-space:     nowrap;
+}
+
+.btn-add {
+  background: var(--colour-accent);
+  color:      white;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-add:hover {
+  background: var(--colour-accent-dark);
+  transform:  translateY(-1px);
+  /* translateY(-1px): button lifts slightly on hover — subtle tactile feedback. */
+  box-shadow: var(--shadow-md);
+}
+
+.btn-add:active {
+  transform:  translateY(0);
+  /* Button presses back on click — natural feel. */
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-add:focus-visible {
+  outline:        2px solid var(--colour-accent);
+  outline-offset: 3px;
+  /* :focus-visible applies ONLY on keyboard navigation, not mouse clicks. */
+}
+
+
+/* ========== TASK LIST ========== */
+
+.tasks-section {
+  background:    var(--colour-surface);
+  border:        1px solid var(--colour-border);
+  border-radius: var(--radius-lg);
+  box-shadow:    var(--shadow-sm);
+  overflow:      hidden;
+  /* overflow: hidden clips children to the border-radius.
+     Without it, first and last task items have square corners. */
+}
+
+.tasks-header {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  padding:         16px 20px 12px;
+  border-bottom:   1px solid var(--colour-border);
+}
+
+.tasks-title {
+  font-size:      1rem;
+  font-weight:    600;
+  color:          var(--colour-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.task-count {
+  font-size:     0.8rem;
+  color:         var(--colour-text-muted);
+  background:    var(--colour-surface-2);
+  padding:       2px 10px;
+  border-radius: 999px; /* 999px = pill shape */
+  border:        1px solid var(--colour-border);
+}
+
+.filter-bar {
+  display:       flex;
+  gap:           4px;
+  padding:       10px 16px;
+  border-bottom: 1px solid var(--colour-border);
+  background:    var(--colour-surface-2);
+}
+
+.filter-btn {
+  padding:       5px 14px;
+  border:        1px solid transparent;
+  border-radius: 999px;
+  background:    transparent;
+  font-size:     0.85rem;
+  font-family:   inherit;
+  color:         var(--colour-text-muted);
+  cursor:        pointer;
+  transition:    all var(--transition);
+}
+
+.filter-btn.active,
+.filter-btn:hover {
+  background:   var(--colour-surface);
+  color:        var(--colour-accent);
+  border-color: var(--colour-border);
+  font-weight:  600;
+}
+
+.task-list {
+  list-style: none; /* Remove default bullet points from <ul>. */
+}
+
+.task-item {
+  display:     flex;
+  align-items: center;
+  gap:         14px;
+  padding:     14px 20px;
+  border-bottom: 1px solid var(--colour-border);
+  transition:  background var(--transition);
+  animation:   slideIn 0.2s ease; /* New tasks animate in. */
+}
+
+@keyframes slideIn {
+  /* @keyframes defines a reusable animation sequence.
+     The browser interpolates between 'from' and 'to'. */
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.task-item:last-child {
+  border-bottom: none;
+}
+
+.task-item:hover {
+  background: var(--colour-surface-2);
+}
+
+.task-checkbox {
+  width:        20px;
+  height:       20px;
+  accent-color: var(--colour-accent);
+  /* accent-color colours native checkboxes to match our design. */
+  cursor:       pointer;
+  flex-shrink:  0;
+  /* flex-shrink: 0 prevents the checkbox from squishing if the title is long. */
+}
+
+.task-title {
+  flex:       1;
+  font-size:  1rem;
+  color:      var(--colour-text);
+  transition: color var(--transition);
+  word-break: break-word;
+}
+
+.task-item.completed .task-title {
+  /* JavaScript adds the 'completed' class. CSS defines what it looks like.
+     This is the JS + CSS collaboration pattern:
+     JS manages state, CSS manages appearance. */
+  text-decoration: line-through;
+  color:           var(--colour-text-muted);
+  opacity:         0.65;
+}
+
+.btn-delete {
+  padding:       5px 10px;
+  background:    transparent;
+  border:        1px solid transparent;
+  border-radius: var(--radius-sm);
+  color:         var(--colour-text-muted);
+  cursor:        pointer;
+  font-size:     0.85rem;
+  transition:    all var(--transition);
+  opacity:       0; /* Hidden by default. Visible only on row hover. */
+}
+
+.task-item:hover .btn-delete {
+  opacity: 1;
+}
+
+.btn-delete:hover {
+  background:   #FEE2E2;
+  color:        var(--colour-danger);
+  border-color: #FECACA;
+}
+
+.empty-state {
+  display:        flex;
+  flex-direction: column;
+  align-items:    center;
+  padding:        48px 24px;
+  color:          var(--colour-text-muted);
+  text-align:     center;
+  gap:            10px;
+}
+
+.empty-icon {
+  font-size: 2.5rem;
+}
+
+.input-error {
+  color:      var(--colour-danger);
+  font-size:  0.85rem;
+  margin-top: 8px;
+  min-height: 20px;
+  /* min-height prevents layout jumping when error appears/disappears. */
+}
+
+
+/* ========== RESPONSIVE ========== */
+
+@media (max-width: 480px) {
+  /* Applies ONLY when viewport is 480px or narrower (mobile phones). */
+
+  body {
+    padding: 12px 10px;
+  }
+
+  .input-group {
+    flex-direction: column; /* Stack input above button. */
+  }
+
+  .btn-add {
+    width: 100%;
+  }
+
+  .app-title {
+    font-size: 1.5rem;
+  }
+
+  .btn-delete {
+    opacity: 1; /* No hover on touch — always show delete button. */
+  }
+}
